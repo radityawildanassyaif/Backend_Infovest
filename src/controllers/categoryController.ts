@@ -24,7 +24,7 @@ export const createCategory = async (req: Request, res: Response) => {
 
     const newCategory = await prisma.category.create({
       data: {
-        name: nama, // ← Simpan ke kolom 'nama' di schema.prisma
+        nama: nama, // ← Simpan ke kolom 'nama' di schema.prisma
       },
     });
 
