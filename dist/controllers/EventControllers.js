@@ -1,11 +1,17 @@
-import prisma from "../lib/Prisma.js";
 export const getEvents = async (req, res) => {
     try {
-        const events = await prisma.event.findMany();
+        const events = await prisma.event.findMany({
+            include: {
+                category: true,
+                pembicara: true,
+            },
+        });
+
         return res.status(200).json(events);
     }
     catch (error) {
         console.error("GET EVENTS ERROR:", error);
+
         return res.status(500).json({
             message: "Gagal mengambil data events",
             error,
@@ -14,8 +20,8 @@ export const getEvents = async (req, res) => {
 };
 export const createEvent = async (req, res) => {
     try {
-        const { title, categoryId, pembicaraId, location, dateEvent, description } = req.body;
-        if (!title ||
+        const { name, categoryId, pembicaraId, location, dateEvent, description } = req.body;
+        if (!name ||
             !categoryId ||
             !pembicaraId ||
             !location ||
@@ -27,7 +33,7 @@ export const createEvent = async (req, res) => {
         }
         const newEvent = await prisma.event.create({
             data: {
-                title,
+                name,
                 location,
                 dateEvent: new Date(dateEvent),
                 description,
@@ -81,11 +87,11 @@ export const getEventById = async (req, res) => {
 export const UpdateEvent = async (req, res) => {
     try {
         const id = Number(req.params.id);
-        const { title, categoryId, pembicaraId, location, dateEvent, description, } = req.body;
+        const { name, categoryId, pembicaraId, location, dateEvent, description, } = req.body;
         const event = await prisma.event.update({
             where: { id },
             data: {
-                title,
+                name,
                 location,
                 dateEvent: new Date(dateEvent),
                 description,

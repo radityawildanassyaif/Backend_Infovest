@@ -19,7 +19,7 @@ model Event {
   createdAt   DateTime @default(now()) @map("created_at")
 
   category    Category  @relation(fields: [categoryId], references: [id])
-  pembicara   pembicara @relation(fields: [pembicaraId], references: [id]) // ← 2. Tambah garis relasi ke model pembicara
+  pembicara   Pembicara @relation(fields: [pembicaraId], references: [id]) // ← 2. Tambah garis relasi ke model pembicara
 
   @@map("events")
 }
@@ -32,7 +32,7 @@ model Category {
   @@map("categories")
 }
 
-model pembicara {
+model Pembicara {
   id     Int     @id @default(autoincrement())
   name   String
   role   String
