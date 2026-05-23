@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -12,14 +12,14 @@ model Event {
   id          Int      @id @default(autoincrement())
   name        String
   categoryId  Int      @map("category_id")
-  pembicaraId Int      @map("pembicara_id") // ← 1. Tambah field foreign key ini
+  pembicaraId Int      @map("pembicara_id")
   location    String
   dateEvent   DateTime @map("date_event")
-  description String   @db.Text
+  description String
   createdAt   DateTime @default(now()) @map("created_at")
 
-  category    Category  @relation(fields: [categoryId], references: [id])
-  pembicara   Pembicara @relation(fields: [pembicaraId], references: [id]) // ← 2. Tambah garis relasi ke model pembicara
+  category    Category   @relation(fields: [categoryId], references: [id])
+  pembicara   Pembicara  @relation(fields: [pembicaraId], references: [id])
 
   @@map("events")
 }
@@ -40,7 +40,7 @@ model Pembicara {
   photo  String?
   bio    String  @default("")
   status String  @default("")
-  events Event[] // ← 3. Tambah field array ini agar relasi dua arahnya valid
+  events Event[]
 
   @@map("pembicara")
 }
