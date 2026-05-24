@@ -6,7 +6,8 @@ import pembicaraRoute from './routes/pembicaraRoute.js';
 const app = express();
 const port = 3000;
 app.use(cors({
-    origin: 'http://localhost:5173' // atau cukup cors() untuk mengizinkan semua
+    origin: 'http://localhost:5173',
+    origin: 'https://frontend-invo-fest.vercel.app/' 
 }));
 app.use(express.json());
 app.get('/', (req, res) => {
