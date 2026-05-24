@@ -7,13 +7,11 @@ import pembicaraRoute from './routes/pembicaraRoute.js';
 const app = express();
 const port = 3000;
 
-app.use(cors({
-  origin: 'http://localhost:5173' // atau cukup cors() untuk mengizinkan semua
-}));
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Backend InvoFest');
+  res.send('Backend Invofest');
 });
 
 app.use("/events", eventRoutes);
@@ -21,6 +19,9 @@ app.use("/categories", categoryRoutes); // Endpoint: http://localhost:3000/categ
 app.use("/speakers", pembicaraRoute);
 
 
+// Di local tetap jalan pakai port 3000, di Vercel otomatis di-export sebagai modul serverless
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+export default app;
